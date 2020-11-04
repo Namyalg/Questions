@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        table, td {
+            border: 1px solid black;
+            padding : 5px;
+            margin: 5px;
+        }
+        </style>
+    </head>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyBuAvZppTYKxtZ_G5vGhZzUPJuMhKoKfsA",
+                authDomain: "enquiry-dialog-box.firebaseapp.com",
+                databaseURL: "https://enquiry-dialog-box.firebaseio.com",
+                projectId: "enquiry-dialog-box",
+                storageBucket: "enquiry-dialog-box.appspot.com",
+                messagingSenderId: "690572487159",
+                appId: "1:690572487159:web:25d93a1dc3b39983e126f2"
+            };
+            firebase.initializeApp(firebaseConfig);
+            var database = firebase.database();
+            var ques = database.ref().child('Questions').child("firstmainhtml");
+            //console.log(questions_db);
+            ques.on("child_added", function(snapshot, prevChildKey) {
+                var newPost = snapshot.val();
+                var email = newPost.Email;
+                var query = newPost.Query;
+                console.log(email);
+                console.log(query);
+                var table = document.getElementById("myTable");
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = email;
+                cell2.innerHTML = query;
+            });
+
+        </script>
+         <table id="myTable">
+            <tr>
+                <td>Email</td>
+                <td>Question</td>
+              </tr>
+        </table>
+    </body>
+</html>
